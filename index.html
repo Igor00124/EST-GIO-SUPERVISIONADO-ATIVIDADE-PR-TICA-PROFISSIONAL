@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <title>DBstock</title>
+</head>
+<body>
+  <header>
+    <img src="img/logo.png">
+    <div class="container">
+      <h1>Sistema Avançado de Gerenciamento de Estoque</h1>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="dashboard">
+      <div class="stat-card">
+        <h3>Total de Produtos</h3>
+        <h2 id="totalProducts">0</h2>
+      </div>
+      <div class="stat-card">
+        <h3>Valor Total em Estoque</h3>
+        <h2 id="totalValue">R$ 0,00</h2>
+      </div>
+      <div class="stat-card">
+        <h3>Produtos com Estoque Baixo</h3>
+        <h2 id="lowStock">0</h2>
+      </div>
+      <div class="stat-card">
+        <h3>Categorias</h3>
+        <h2 id="totalCategories">0</h2>
+      </div>
+    </div>
+
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Buscar produtos...">
+      <select id="categoryFilter">
+        <option value="">Informações do produto</option>
+      </select>
+      <select id="sortBy">
+        <option value="name">Nome</option>
+        <option value="price">Preço</option>
+        <option value="quantity">Quantidade</option>
+      </select>
+      <button onclick="inventory.search()" class="btn-info">Buscar</button>
+    </div>
+
+    <div class="inventory-panel">
+      <div class="card">
+        <h2>Adicionar Produto</h2>
+        <form id="productForm">
+          <div class="form-group">
+            <label for="productName">Nome do Produto</label>
+            <input type="text" id="productName" required>
+          </div>
+          <div class="form-group">
+            <label for="productCategory">Categoria</label>
+            <select id="productCategory" required>
+              <option value="Eletrônicos">Eletrônicos</option>
+              <option value="Alimentos">Alimentos</option>
+              <option value="Vestuário">Vestuário</option>
+              <option value="Móveis">Móveis</option>
+              <option value="Outros">Outros</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="productQuantity">Quantidade</label>
+            <input type="number" id="productQuantity" required min="0">
+          </div>
+          <div class="form-group">
+            <label for="productPrice">Preço</label>
+            <input type="number" id="productPrice" step="0.01" required min="0">
+          </div>
+          <div class="form-group">
+            <label for="minStock">Estoque Mínimo</label>
+            <input type="number" id="minStock" required min="0" value="5">
+          </div>
+          <div class="form-group">
+            <label for="productDescription">Descrição</label>
+            <textarea id="productDescription" rows="3"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="supplier">Fornecedor</label>
+            <input type="text" id="supplier">
+          </div>
+          <button type="submit" class="btn-success">Adicionar Produto</button>
+        </form>
+      </div>
+
+      <div class="card">
+        <h2>Produtos em Estoque</h2>
+        <div id="productList" class="product-list">
+          <!-- Products will be dynamically added here -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="editModal" class="modal">
+    <div class="modal-content">
+      <h2>Editar Produto</h2>
+      <form id="editForm">
+        <div class="form-group">
+          <label for="editName">Nome</label>
+          <input type="text" id="editName" required>
+        </div>
+        <div class="form-group">
+          <label for="editCategory">Categoria</label>
+          <select id="editCategory" required>
+            <option value="Eletrônicos">Eletrônicos</option>
+            <option value="Alimentos">Alimentos</option>
+            <option value="Vestuário">Vestuário</option>
+            <option value="Móveis">Móveis</option>
+            <option value="Outros">Outros</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="editQuantity">Quantidade</label>
+          <input type="number" id="editQuantity" required min="0">
+        </div>
+        <div class="form-group">
+          <label for="editPrice">Preço</label>
+          <input type="number" id="editPrice" step="0.01" required min="0">
+        </div>
+        <div class="form-group">
+          <label for="editMinStock">Estoque Mínimo</label>
+          <input type="number" id="editMinStock" required min="0">
+        </div>
+        <div class="form-group">
+          <label for="editDescription">Descrição</label>
+          <textarea id="editDescription" rows="3"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="editSupplier">Fornecedor</label>
+          <input type="text" id="editSupplier">
+        </div>
+        <input type="hidden" id="editId">
+        <button type="submit" class="btn-success">Salvar</button>
+        <button type="button" onclick="closeModal()" class="btn-danger">Cancelar</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="notification" class="notification"></div>
+<body>
+  <script src="javascript"></script>
+    
+</body>
+</html>
